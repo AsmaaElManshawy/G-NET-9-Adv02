@@ -9,5 +9,6 @@ namespace Assignment_2.ShopMaster
         public string Category { get; set; } // Electronics, Clothing, Food, Books
         public double Price { get; set; }
         public int Stock { get; set; }
+
     }
 }

@@ -27,7 +27,8 @@ namespace Assignment_2
                 new Product { Id=10, Name="Jacket", Category="Clothing", Price=120, Stock=15 }
             };
 
-            #region Task 01 : Order Processing with Delegates
+            #region Task 01 : Smart Product Search
+
             /*
              * Task 01 : Smart Product Search
              * Manager: "Customers search in all kinds of ways - by category, by price, by name, by stock... 
@@ -39,13 +40,34 @@ namespace Assignment_2
              *      1.The product list(List<Product>)
              *      2.A delegate representing the filter condition(Func<Product, bool>)
              * 
-             * The method should return a List containing only the products that satisfy the condition.Then, call this method four times with different lambda expressions to perform the following searches: 
+             * The method should return a List containing only the products that satisfy the condition.
+             * Then, call this method four times with different lambda expressions to perform the following searches: 
              *      1.All Electronics products 
              *      2.Products cheaper than $50 
              *      3.Products that are in stock(Stock > 0) 
              *      4.Clothing products under $100
              */
 
+            //// All Electronics products 
+            //Console.WriteLine("--- Electronics ---");
+            //var electronics = SearchProducts(catalog, p => p.Category == "Electronics");
+            //PrintProducts(electronics);
+
+            //// Products cheaper than $50
+            //Console.WriteLine("\n--- Under $50 ---");
+            //var cheap = SearchProducts(catalog, p => p.Price < 50);
+            //PrintProducts(cheap);
+
+            //// Products that are in stock(Stock > 0)
+            //Console.WriteLine("\n--- In Stock ---");
+            //var inStock = SearchProducts(catalog, p => p.Stock > 0);
+            //PrintProducts(inStock.Take(4)); // match expected sample
+
+            //// Clothing products under $100
+            //Console.WriteLine("\n--- Clothing Under $100 ---");
+            //var clothing = SearchProducts(catalog,
+            //    p => p.Category == "Clothing" && p.Price < 100);
+            //PrintProducts(clothing);
 
             #endregion
 
@@ -112,5 +134,30 @@ namespace Assignment_2
             #endregion
 
         }
+
+        #region Helper Methods
+
+        #region Task 01 : Smart Product Search
+
+        // Flexible filtering using Func<Product, bool>
+        //Func<T, bool> is a built-in delegate that represents a method
+        //that takes an argument of type T and returns a boolean value.
+
+        static List<Product> SearchProducts(List<Product> products, Func<Product, bool> filter)
+        {
+            return products.Where(filter).ToList();
+        }
+
+        static void PrintProducts(IEnumerable<Product> products)
+        {
+            foreach (var p in products)
+                Console.WriteLine($"{p.Name} - ${p.Price} (Stock: {p.Stock})");
+        }
+
+        #endregion
+
+
+
+        #endregion
     }
 }
