@@ -27,7 +27,8 @@ namespace Assignment_2
                 new Product { Id=10, Name="Jacket", Category="Clothing", Price=120, Stock=15 }
             };
 
-            #region Task 01 : Order Processing with Delegates
+            #region Task 01 : Smart Product Search
+
             /*
              * Task 01 : Smart Product Search
              * Manager: "Customers search in all kinds of ways - by category, by price, by name, by stock... 
@@ -39,13 +40,34 @@ namespace Assignment_2
              *      1.The product list(List<Product>)
              *      2.A delegate representing the filter condition(Func<Product, bool>)
              * 
-             * The method should return a List containing only the products that satisfy the condition.Then, call this method four times with different lambda expressions to perform the following searches: 
+             * The method should return a List containing only the products that satisfy the condition.
+             * Then, call this method four times with different lambda expressions to perform the following searches: 
              *      1.All Electronics products 
              *      2.Products cheaper than $50 
              *      3.Products that are in stock(Stock > 0) 
              *      4.Clothing products under $100
              */
 
+            //// All Electronics products 
+            //Console.WriteLine("--- Electronics ---");
+            //var electronics = SearchProducts(catalog, p => p.Category == "Electronics");
+            //PrintProducts(electronics);
+
+            //// Products cheaper than $50
+            //Console.WriteLine("\n--- Under $50 ---");
+            //var cheap = SearchProducts(catalog, p => p.Price < 50);
+            //PrintProducts(cheap);
+
+            //// Products that are in stock(Stock > 0)
+            //Console.WriteLine("\n--- In Stock ---");
+            //var inStock = SearchProducts(catalog, p => p.Stock > 0);
+            //PrintProducts(inStock.Take(4)); // match expected sample
+
+            //// Clothing products under $100
+            //Console.WriteLine("\n--- Clothing Under $100 ---");
+            //var clothing = SearchProducts(catalog,
+            //    p => p.Category == "Clothing" && p.Price < 100);
+            //PrintProducts(clothing);
 
             #endregion
 
@@ -74,6 +96,14 @@ namespace Assignment_2
              * 
              */
 
+            //// Print each product as Name - $Price
+            //Console.WriteLine("\n--- Short Report ---");
+            //PrintReport(catalog, p => Console.WriteLine($"{p.Name} - ${p.Price}") );
+
+            //// Print each product as [Category] Name | Price: $X | Stock: Y
+            //Console.WriteLine("\n--- Detailed Report ---");
+            //PrintReport(catalog, p => Console.WriteLine($"[{p.Category}] {p.Name} | Price: ${p.Price} | Stock: {p.Stock}") );
+
             #endregion
 
             #region 3.2 Transform Products
@@ -91,6 +121,25 @@ namespace Assignment_2
              * 
              */
 
+            //// Transform each product into a string like "Laptop ($1200)"
+            //Console.WriteLine("\n--- Summary List ---");
+            //var summary = TransformProducts(catalog, p => $"{p.Name} (${p.Price})");
+
+            //foreach (var item in summary)
+            //    Console.WriteLine(item);
+
+            //// Transform each product into "Expensive!" if Price > $100, or "Affordable" otherwise.Print as Name: Label.
+            //Console.WriteLine("\n--- Price Labels ---");
+            //var labels = TransformProducts(catalog,
+            //    p => new
+            //    {
+            //        p.Name,
+            //        Label = p.Price > 100 ? "Expensive!" : "Affordable"
+            //    } );
+
+            //foreach (var item in labels)
+            //    Console.WriteLine($"{item.Name}: {item.Label}");
+
             #endregion
 
             #region 3.3 Filter Products
@@ -105,6 +154,12 @@ namespace Assignment_2
              * 
              */
 
+            //Console.WriteLine("\n--- Low-Stock Alert ---");
+            //var lowStock = FilterProducts(catalog, p => p.Stock < 20);
+
+            //foreach (var p in lowStock)
+            //    Console.WriteLine($"[LOW STOCK] {p.Name}: only {p.Stock} left!");
+
             #endregion
 
             #endregion
@@ -112,5 +167,70 @@ namespace Assignment_2
             #endregion
 
         }
+
+        #region Helper Methods
+
+        #region Task 01 : Smart Product Search
+
+        // Flexible filtering using Func<Product, bool>
+        //Func<T, bool> is a built-in delegate that represents a method
+        //that takes an argument of type T and returns a boolean value.
+
+        static List<Product> SearchProducts(List<Product> products, Func<Product, bool> filter)
+        {
+            return products.Where(filter).ToList();
+        }
+
+        static void PrintProducts(IEnumerable<Product> products)
+        {
+            foreach (var p in products)
+                Console.WriteLine($"{p.Name} - ${p.Price} (Stock: {p.Stock})");
+        }
+
+        #endregion
+
+        #region Task 03
+
+        #region 3.1 Print Reports
+
+        // Action<T> is a built-in delegate that represents a method
+        // Executes logic without returning value
+
+        static void PrintReport(List<Product> products, Action<Product> action)
+        {
+            foreach (var p in products)
+                action(p);
+        }
+
+        #endregion
+
+        #region 3.2 Transform Products
+
+        // Func<T, TResult> is a built-in delegate that represents a method
+        //Func<T, TResult> (Transform) Converts product into another form
+
+        static List<TResult> TransformProducts<TResult>( List<Product> products, Func<Product, TResult> transformer)
+        {
+            return products.Select(transformer).ToList();
+        }
+
+        #endregion
+
+        #region 3.3 Filter Products
+
+        // Predicate<T> is a built-in delegate that represents a method
+        // that takes an argument of type T and returns a boolean value.
+        // Predicate<T> (Filter) Specialized boolean filter
+
+        static List<Product> FilterProducts( List<Product> products, Predicate<Product> predicate)
+        {
+            return products.Where(p => predicate(p)).ToList();
+        }
+
+        #endregion
+
+        #endregion
+
+        #endregion
     }
 }
