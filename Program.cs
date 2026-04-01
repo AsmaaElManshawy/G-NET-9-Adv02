@@ -121,6 +121,25 @@ namespace Assignment_2
              * 
              */
 
+            //// Transform each product into a string like "Laptop ($1200)"
+            //Console.WriteLine("\n--- Summary List ---");
+            //var summary = TransformProducts(catalog, p => $"{p.Name} (${p.Price})");
+
+            //foreach (var item in summary)
+            //    Console.WriteLine(item);
+
+            //// Transform each product into "Expensive!" if Price > $100, or "Affordable" otherwise.Print as Name: Label.
+            //Console.WriteLine("\n--- Price Labels ---");
+            //var labels = TransformProducts(catalog,
+            //    p => new
+            //    {
+            //        p.Name,
+            //        Label = p.Price > 100 ? "Expensive!" : "Affordable"
+            //    } );
+
+            //foreach (var item in labels)
+            //    Console.WriteLine($"{item.Name}: {item.Label}");
+
             #endregion
 
             #region 3.3 Filter Products
@@ -175,6 +194,18 @@ namespace Assignment_2
         {
             foreach (var p in products)
                 action(p);
+        }
+
+        #endregion
+
+        #region 3.2 Transform Products
+
+        // Func<T, TResult> is a built-in delegate that represents a method
+        //Func<T, TResult> (Transform) Converts product into another form
+
+        static List<TResult> TransformProducts<TResult>( List<Product> products, Func<Product, TResult> transformer)
+        {
+            return products.Select(transformer).ToList();
         }
 
         #endregion
