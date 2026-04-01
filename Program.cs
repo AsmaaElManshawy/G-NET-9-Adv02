@@ -96,6 +96,14 @@ namespace Assignment_2
              * 
              */
 
+            //// Print each product as Name - $Price
+            //Console.WriteLine("\n--- Short Report ---");
+            //PrintReport(catalog, p => Console.WriteLine($"{p.Name} - ${p.Price}") );
+
+            //// Print each product as [Category] Name | Price: $X | Stock: Y
+            //Console.WriteLine("\n--- Detailed Report ---");
+            //PrintReport(catalog, p => Console.WriteLine($"[{p.Category}] {p.Name} | Price: ${p.Price} | Stock: {p.Stock}") );
+
             #endregion
 
             #region 3.2 Transform Products
@@ -156,7 +164,22 @@ namespace Assignment_2
 
         #endregion
 
+        #region Task 03
 
+        #region 3.1 Print Reports
+
+        // Action<T> is a built-in delegate that represents a method
+        // Executes logic without returning value
+
+        static void PrintReport(List<Product> products, Action<Product> action)
+        {
+            foreach (var p in products)
+                action(p);
+        }
+
+        #endregion
+
+        #endregion
 
         #endregion
     }
