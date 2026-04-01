@@ -154,6 +154,12 @@ namespace Assignment_2
              * 
              */
 
+            //Console.WriteLine("\n--- Low-Stock Alert ---");
+            //var lowStock = FilterProducts(catalog, p => p.Stock < 20);
+
+            //foreach (var p in lowStock)
+            //    Console.WriteLine($"[LOW STOCK] {p.Name}: only {p.Stock} left!");
+
             #endregion
 
             #endregion
@@ -206,6 +212,19 @@ namespace Assignment_2
         static List<TResult> TransformProducts<TResult>( List<Product> products, Func<Product, TResult> transformer)
         {
             return products.Select(transformer).ToList();
+        }
+
+        #endregion
+
+        #region 3.3 Filter Products
+
+        // Predicate<T> is a built-in delegate that represents a method
+        // that takes an argument of type T and returns a boolean value.
+        // Predicate<T> (Filter) Specialized boolean filter
+
+        static List<Product> FilterProducts( List<Product> products, Predicate<Product> predicate)
+        {
+            return products.Where(p => predicate(p)).ToList();
         }
 
         #endregion
